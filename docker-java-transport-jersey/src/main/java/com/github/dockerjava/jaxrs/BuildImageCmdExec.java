@@ -114,6 +114,12 @@ public class BuildImageCmdExec extends AbstrAsyncDockerCmdExec<BuildImageCmd, Bu
 
         webTarget = writeMap(webTarget, "buildargs", command.getBuildArgs());
 
+        if (command.getExtraHosts() != null && !command.getExtraHosts().isEmpty()) {
+            for (String h : command.getExtraHosts()) {
+                webTarget = webTarget.queryParam("extrahosts", h);
+            }
+        }
+
         if (command.getShmsize() != null) {
             webTarget = webTarget.queryParam("shmsize", command.getShmsize());
         }

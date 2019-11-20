@@ -9,6 +9,7 @@ import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeSet;
 
 import com.github.dockerjava.api.command.BuildImageCmd;
 import com.github.dockerjava.api.model.AuthConfigurations;
@@ -63,6 +64,8 @@ public class BuildImageCmdImpl extends AbstrAsyncDockerCmd<BuildImageCmd, BuildR
     private URI remote;
 
     private Map<String, String> buildArgs;
+
+    private Set<String> extraHosts;
 
     private Map<String, String> labels;
 
@@ -176,6 +179,11 @@ public class BuildImageCmdImpl extends AbstrAsyncDockerCmd<BuildImageCmd, BuildR
     @Override
     public Map<String, String> getBuildArgs() {
         return buildArgs;
+    }
+
+    @Override
+    public Set<String> getExtraHosts() {
+        return extraHosts;
     }
 
     @Override
@@ -309,6 +317,15 @@ public class BuildImageCmdImpl extends AbstrAsyncDockerCmd<BuildImageCmd, BuildR
             this.buildArgs = new HashMap<>();
         }
         this.buildArgs.put(key, value);
+        return this;
+    }
+
+    @Override
+    public BuildImageCmd withExtraHost(String host) {
+        if (this.extraHosts == null) {
+            this.extraHosts = new TreeSet<>();
+        }
+        this.extraHosts.add(host);
         return this;
     }
 

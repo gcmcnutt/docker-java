@@ -114,6 +114,12 @@ public interface BuildImageCmd extends AsyncDockerCmd<BuildImageCmd, BuildRespon
     Map<String, String> getBuildArgs();
 
     /**
+     * @since {@link RemoteApiVersion#VERSION_1_28}
+     */
+    @CheckForNull
+    Set<String> getExtraHosts();
+
+    /**
      * @since {@link RemoteApiVersion#VERSION_1_22}
      */
     @CheckForNull
@@ -191,6 +197,11 @@ public interface BuildImageCmd extends AsyncDockerCmd<BuildImageCmd, BuildRespon
      * @since {@link RemoteApiVersion#VERSION_1_21}
      */
     BuildImageCmd withBuildArg(String key, String value);
+
+    /**
+     * @since {@link RemoteApiVersion#VERSION_1_23}
+     */
+    BuildImageCmd withExtraHost(String host);
 
     // setters lib specific
 
